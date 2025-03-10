@@ -1,0 +1,28 @@
+# Ignore model checkpoints
+*.pt
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment
+venv/
+env/
+
+# Ignore dataset and large files
+data/
+datasets/
+*.csv
+*.json
+
+# Ignore logs and outputs
+logs/
+*.log
+output/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore IDE/editor specific files
+.vscode/
+.idea/
