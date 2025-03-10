@@ -14,6 +14,10 @@ class GPT2(nn.Module):
         self.lm_head = nn.Linear(embed_dim, vocab_size, bias=False)
     
     def forward(self, x, mask=None):
+        seq_length = x.shape[1]
+        mask = torch.triu(torch.ones(seq_length, seq_length, device=x.device), diagonal=1)
+        mask = mask.masked_fill(mask == 1, float('-inf'))
+
         x = self.token_emb(x) + self.pos_emb(x)
         for layer in self.layers:
             x = layer(x, mask)

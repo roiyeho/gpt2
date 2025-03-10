@@ -24,6 +24,3 @@ class TextDataset(Dataset):
         input_seq = torch.tensor(self.data[idx][:-1], dtype=torch.long)
         target_seq = torch.tensor(self.data[idx][1:], dtype=torch.long)
         return input_seq, target_seq
-
-
-
