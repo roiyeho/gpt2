@@ -1,8 +1,5 @@
 import torch
-from torch.utils.data import Dataset, DataLoader
-from bpe_tokenizer import BPETokenizer
-import requests
-import os
+from torch.utils.data import Dataset
 
 class TextDataset(Dataset):
     def __init__(self, file_path, tokenizer, seq_length=128):
@@ -29,7 +26,4 @@ class TextDataset(Dataset):
         return input_seq, target_seq
 
 
-# Function to get DataLoader
-def get_dataloader(file_path, tokenizer, batch_size=8, seq_length=128):
-    dataset = TextDataset(file_path, tokenizer, seq_length)
-    return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+

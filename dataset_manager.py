@@ -1,6 +1,8 @@
 import os
 import requests
 from bpe_tokenizer import BPETokenizer
+from text_dataset import TextDataset
+from torch.utils.data import DataLoader
 
 class DatasetManager:
     def __init__(self, dataset_path="wikitext-2.txt", vocab_size=32000, seq_length=128, batch_size=8):
@@ -23,21 +25,11 @@ class DatasetManager:
         with open(path, 'w', encoding='utf-8') as f:
             f.write(response.text)
         print(f"Dataset downloaded and saved to {path}")
-        
-    def train_tokenizer(self, corpus_path):        
-        print("Training BPE tokenizer...")
-        self.tokenizer.train(corpus_path)
-        self.tokenizer.save()
-
-    def load_tokenizer(self):
-        if os.path.exists("bpe_tokenizer.json"):
-            print("Loading pre-trained tokenizer...")
-            self.tokenizer.load()
-        else:
-            print("Tokenizer does not exist")
             
-    def get_dataloaders(self):
-        """Returns training and validation DataLoaders."""
-        #dataloader = get_dataloader(self.dataset_path, self.tokenizer, self.batch_size, self.seq_length)
-        #return dataloader
-        pass
+    def get_dataloader(self, file_path, tokenizer, batch_size=8, seq_length=128):
+        """Creates and returns a DataLoader for the dataset."""
+        dataset = TextDataset(file_path, tokenizer, seq_length)
+        return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+
+
+    
